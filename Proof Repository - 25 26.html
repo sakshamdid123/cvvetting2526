@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Vetting - Saksham Didwania</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --text-color: #34495e;
+            --heading-color: #1b3055;
+            --accent-color-start: #1b3055;
+            --accent-color-end: #4a69a1;
+            --green-icon: #27ae60;
+            --yellow-icon: #f39c12;
+            --red-icon: #e74c3c;
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes staggerIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        h1 {
+            color: var(--heading-color);
+            text-align: center;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .gradient-text {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--accent-color-start), var(--accent-color-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            font-weight: 600;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color-start), var(--accent-color-end));
+            transition: width 0.3s ease-out;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            position: relative;
+        }
+        
+        /* Hierarchy Lines */
+        li ul {
+            padding-left: 25px;
+            margin-top: 10px;
+            border-left: 2px solid #dde2e7;
+        }
+        
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 10px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            animation: staggerIn 0.5s ease-out forwards;
+            animation-delay: var(--stagger-delay, 0s);
+        }
+
+        li:hover {
+            background-color: #eaf2ff;
+            transform: scale(1.02);
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--heading-color);
+        }
+
+        .proof-icon-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 10px;
+        }
+        
+        .proof-icon {
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        
+        .proof-icon:hover {
+            transform: scale(1.25) rotate(5deg);
+        }
+        
+        .proof-icon.available { color: var(--green-icon); }
+        .proof-icon.available:hover { color: #229954; }
+
+        .proof-icon.pending { color: var(--red-icon); }
+        .proof-icon.pending:hover { color: #c0392b; }
+        
+        .proof-icon.info { color: var(--yellow-icon); }
+        .proof-icon.info:hover { color: #d68910; }
+
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            width: max-content;
+            max-width: 240px;
+            background-color: var(--heading-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 150%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 0.85rem;
+            font-weight: 400;
+            white-space: normal;
+        }
+        
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--heading-color) transparent transparent transparent;
+        }
+        
+        .proof-icon-wrapper:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: auto;
+            border-radius: 12px;
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
+            box-shadow: var(--shadow);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            color: white;
+            background: linear-gradient(45deg, var(--accent-color-start), var(--accent-color-end));
+            font-size: 24px;
+            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1001;
+            border: 2px solid white;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>SAKSHAM DIDWANIA</h1>
+        <h2 class="gradient-text">Welcome To The CV Vetting 2025/26!</h2>
+
+        <div class="section">
+            <h2>EDUCATIONAL QUALIFICATIONS & ACHIEVEMENTS</h2>
+            <ul>
+                <li>
+                    <span><strong>Academic Table</strong></span>
+                    <ul>
+                        <li><span>B.Com. (Hons.)</span><div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1b7X6llxJmA0-47kdwHM3cMOFPO6Z6M91/preview"></i></div></li>
+                        <li><span>Rest All</span> <div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables</span></div></li>
+                    </ul>
+                </li>
+                <li>
+                    <span><strong>Pointers</strong></span>
+                    <ul>
+                        <li><span>First Pointer</span><div class="proof-icon-wrapper"><i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables - combined 1st and 4th pointer from Scholastic Achievements of Internship CV</span></div></li>
+                        <li><span>Second Pointer</span><div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1gfJO1npnrjiMLZOyh4Nkz19W9D8t-_E1/preview"></i></div></li>
+                        <li>
+                            <span>Third Pointer</span>
+                            <ul>
+                                <li><span>LOR</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                                <li><span>CUET</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1_9iDhpDwjsD5yve94duLHmTC5iD5CQVS/preview"></i></div></li>
+                                <li><span>B.Com. (Hons.) Papers</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1b7X6llxJmA0-47kdwHM3cMOFPO6Z6M91/preview"></i></div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>INTERNSHIPS</h2>
+            <ul>
+                <li>
+                    <span><strong>Company Names</strong></span>
+                    <ul>
+                        <li>
+                            <span>Accenture Strategy</span>
+                            <ul>
+                                <li><span>Pointers</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1F6syJUS3N_z947KqHfxG5y96Uq6Ol2P0/preview"></i></div></li>
+                                <li><span>Client Names (4th Pointer - Refer from 1:53 duration)</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1kxaI82LZYoTUckf1XoBHkj6YO4fEdZMs/preview"></i></div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span>Samara Capital</span>
+                            <ul>
+                                <li><span>Pointers</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update before vetting cycle ends - leave for last - apologies!</span></div></li>
+                                <li><span>Proof of Offer & Onboarding</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1f45Y-_PT78e55RS2ZhnaWIFdV1Yy39Ye/preview"></i></div></li>
+                            </ul>
+                        </li>
+                        <li><span>DLF</span> <div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables</span></div></li>
+                        <li><span>Indian Angel Network</span> <div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables - only change in structuring of pointers</span></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>ENTREPRENEURIAL VENTURES</h2>
+            <ul>
+                <li>
+                    <span><strong>Venture Name</strong></span>
+                    <ul>
+                        <li><span>Campus Bazaar</span> <div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - GMV is equivalent to listings - no changes other than this post running Draftables - certain structuring changes</span></div></li>
+                        <li><span>Case Buddy</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                        <li><span>CoLab</span> <div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - SKU is equivalent to listings - traction is equivalent to followers and users - no changes other than this post running Draftables - certain structuring changes</span></div></li>
+                        <li><span>Equitus Capital</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>POSITIONS OF RESPONSIBILITY</h2>
+            <ul>
+                <li>
+                    <span><strong>Organisation Names</strong></span>
+                    <ul>
+                        <li><span>The Placement Cell, SRCC</span> <div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">all the best with this -</span></div></li>
+                        <li><span>The 80/20 Consultants</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                        <li><span>School Cabinet, Saint Josephs' School</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1gfJO1npnrjiMLZOyh4Nkz19W9D8t-_E1/preview"></i></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>CONSULTING & FINANCE PROJECTS</h2>
+            <ul>
+                <li>
+                    <span><strong>Project Names</strong></span>
+                    <ul>
+                        <li><span>Tata AIG</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables - only change in structuring of pointers</span></div></li>
+                        <li><span>Samsung</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes in pointers post running Draftables - shifted from Internships to Projects - added "under Equitus" instead of "^" -  1/10 equivalent to 10% </span></div></li>
+                        <li>
+                            <span>Ernst and Young</span>
+                            <ul>
+                                <li><span>Remark</span> <div class="proof-icon-wrapper"><i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">offer already vetted in the Internship season - qualitative pointers mentioned - quants are the industry size of pharma & biopharma (industry names mentioned in approval) and ICH Q9, WHO-GMP are examples of universal global norms regarding quality standards - providing proof of the same below - </span></div></li>
+                                <li><span>Proof of Facts & Explanation</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1C1ZkTIGKi4CPSky6TP9bjCEBzvybSrRW/preview"></i></div></li>
+                            </ul>
+                        </li>
+                        <li><span>Exponent Energy</span> <div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/17-Y_k8LI1uLaK2bXRHBz1uCv4kkSGj9H/preview"></i></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>EXTRA-CURRICULAR ACTIVITIES</h2>
+            <ul>
+                <li>
+                    <span><strong>International Public Exposure</strong></span>
+                    <ul>
+                        <li><span>Sub-Header</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                        <li><span>First Pointer</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                        <li><span>Second Pointer</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                        <li><span>Third Pointer</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables - same as International Exposure in Internship Variant - two pointers merged as one</span></div></li>
+                        <li><span>Fourth Pointer</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                    </ul>
+                </li>
+                <li>
+                    <span><strong>Case Competitions</strong></span>
+                    <ul>
+                        <li><span>Sub-Header</span><div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                        <li><span>First Pointer</span><div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/11MHu9DHhJ5K-NJxFTzidVtu3zLD3_QXQ/preview"></i></div></li>
+                        <li><span>Second Pointer</span> <div class="proof-icon-wrapper"><i class="bi bi-x-circle-fill proof-icon pending"></i><span class="tooltip-text">will update in due time - apologies!</span></div></li>
+                        <li><span>Third Pointer</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables</span></div></li>
+                        <li><span>Fourth Pointer</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables</span></div></li>
+                    </ul>
+                </li>
+                <li>
+                    <span><strong>Abacus & Chess</strong></span>
+                    <ul>
+                        <li><span>Sub-Header</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">self explanatory - from the pointers</span></div></li>
+                        <li><span>First Pointer</span><div class="proof-icon-wrapper"><i class="bi bi-check-circle-fill proof-icon available" data-proof-src="https://drive.google.com/file/d/1wDh41T9_Ff0iuS8-s5kFa04p8AzmjNTU/preview"></i></div></li>
+                        <li><span>Second Pointer</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables</span></div></li>
+                    </ul>
+                </li>
+                <li>
+                    <span><strong>Publications & Events</strong></span>
+                    <ul>
+                        <li><span>First Pointer</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - no changes post running Draftables - combined CMS POR pointer & Research Publication (ECA) pointer</span></div></li>
+                        <li><span>Second Pointer</span><div class="proof-icon-wrapper"> <i class="bi bi-exclamation-circle-fill proof-icon info"></i><span class="tooltip-text">already vetted - for partner names, please refer to GO-VET/FNS ID (Students' Union, SRCC)</span></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="proofModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <iframe id="proofFrame" src="" frameborder="0" allow="autoplay; fullscreen"></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Staggered animation for list items
+            const listItems = document.querySelectorAll('li');
+            listItems.forEach((item, index) => {
+                item.style.setProperty('--stagger-delay', `${index * 50}ms`);
+            });
+
+            // Modal functionality
+            const modal = document.getElementById('proofModal');
+            const modalFrame = document.getElementById('proofFrame');
+            const closeModalButton = document.querySelector('.modal-close');
+
+            const openModal = (src) => {
+                modalFrame.setAttribute('src', src);
+                modal.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeModal = () => {
+                modal.classList.remove('visible');
+                modalFrame.setAttribute('src', '');
+                document.body.style.overflow = 'auto';
+            };
+
+            document.querySelectorAll('.proof-icon[data-proof-src]').forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const proofSrc = icon.getAttribute('data-proof-src');
+                    // Use the exact src from the HTML without modification
+                    openModal(proofSrc);
+                });
+            });
+
+            closeModalButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => (e.target === modal) && closeModal());
+            document.addEventListener('keydown', (e) => (e.key === 'Escape' && modal.classList.contains('visible')) && closeModal());
+        });
+    </script>
+</body>
+</html>
